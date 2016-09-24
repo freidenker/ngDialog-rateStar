@@ -1,13 +1,16 @@
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-plain.css">
-
+ <link rel="stylesheet" type="text/css" href="bower_components/font-awesome/css/font-awesome.css">
 <body ng-app="exampleDialog" ng-controller="MainCtrl">
 <div >
 <button type="button" ng-dialog="firstDialogId" ng-dialog-controller="InsideCtrl" ng-dialog-data="{{jsonData}}" ng-dialog-class="ngdialog-theme-default" ng-dialog-show-close="true">Open via directive</button>
 <a href ng-click="openTemplate()">open template</a>
 <a href ng-click="openPlain()">open plain</a>
 <a href ng-click="openDefault()">open default</a>
+<div>
+<p>{{feed.back}}</p>
+</div>
 <script src="angular.min.js"></script>
 <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
 
@@ -68,11 +71,20 @@ scope: $scope
 app.controller('InsideCtrl', function ($scope, ngDialog) {
 $scope.openSecond = function () {
 ngDialog.open({
-template: '<h3><a href="" ng-click="closeSecond()">Close all by click here!</a></h3>',
-//template: 'sedDialogId',
+/*template: '<h3>' +
+          '<a href="" ng-click="closeSecond()">Close all by click here!</a>'+
+          '</h3>',
+*/
+template:  "<h3>Rating</h3> "
+           + '<div ng-init="rating = star.rating + 1"></div>'
+           + '<div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)"> </div>',
+
+//template: "<button type='button' ng-dialog='npdpop.html' ng-dialog-class='ngdialog-theme-flat' ng-dialog-controller='SecondModalCtrl' ng-dialog-close-previous>Open</button>",
+//template: 'npdpop.html',
 plain: true,
 closeByEscape: false,
-controller: 'SecondModalCtrl'
+//controller: 'SecondModalCtrl'
+controller: 'RatingCtrl'
 });
 };
 });
@@ -83,6 +95,84 @@ ngDialog.close();
 };
 });
 
+app.controller('RatingCtrl', function ($scope, $rootScope, ngDialog) {
+  $scope.rating = 5;
+  $rootScope.feed={back: 0};
+  $scope.rateFunction = function(rating) {
+    alert('Rating selected new- ' + rating);
+    $rootScope.feed.back=rating;
+  };
+});
+
+app.directive('starRating',
+function() {
+ return {
+   restrict : 'A',
+   template : '<ul class="rating">'
+        + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)" class="fa fa-star active">'
+
+        + '</li>'
+        + '</ul>',
+   scope : {
+     ratingValue : '=',
+     max : '=',
+     onRatingSelected : '&'
+   },
+   link : function(scope, elem, attrs) {
+     var updateStars = function() {
+       scope.stars = [];
+       for ( var i = 0; i < scope.max; i++) {
+         scope.stars.push({
+           filled : i < scope.ratingValue
+         });
+       }
+     };
+
+     scope.toggle = function(index) {
+       scope.ratingValue = index + 1;
+       scope.onRatingSelected({
+         rating : index + 1
+       });
+     };
+
+     scope.$watch('ratingValue',
+       function(oldVal, newVal) {
+         if (newVal) {
+           updateStars();
+         }
+       }
+     );
+   }
+ };
+});
+
+
 </script>
+<style>
+.rating{
+  color: #D1D1D1;
+  margin: 0;
+  padding: 0;
+}
+
+ul.rating {
+  display: inline-block;
+}
+
+.rating li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 4px;
+  font-size: 25px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.rating .filled {
+ color: #FDE35E;
+}
+</style>
+
 </div>
 </body>
