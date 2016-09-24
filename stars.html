@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>star</title>
+
+ </head>
+
+ <body ng-app="RatingTutorial" ng-controller="RatingCtrl">
+
+  <h3>Rating</h3>
+  <div ng-init="rating = star.rating + 1"></div>
+
+ <div class="star-rating" star-rating rating-value="rating"
+
+  data-max="5" on-rating-selected="rateFunction(rating)"></div>
+
+  <script type="text/javascript" src="./angular.min.js"></script>
+ </body>
+
+
+ <link rel="stylesheet" type="text/css" href="font-awesome.css">
+ <script type="text/javascript">
+ angular.module('RatingTutorial', [])
+   .controller('RatingCtrl', function($scope) {
+     $scope.rating = 5;
+     $scope.rateFunction = function(rating) {
+       alert('Rating selected new- ' + rating);
+     };
+   })
+   .directive('starRating',
+ 	 function() {
+ 		return {
+ 			restrict : 'A',
+ 			template : '<ul class="rating">'
+ 					 + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)" class="fa fa-star active">'
+
+ 					 + '</li>'
+ 					 + '</ul>',
+ 			scope : {
+ 				ratingValue : '=',
+ 				max : '=',
+ 				onRatingSelected : '&'
+ 			},
+ 			link : function(scope, elem, attrs) {
+ 				var updateStars = function() {
+ 					scope.stars = [];
+ 					for ( var i = 0; i < scope.max; i++) {
+ 						scope.stars.push({
+ 							filled : i < scope.ratingValue
+ 						});
+ 					}
+ 				};
+
+ 				scope.toggle = function(index) {
+ 					scope.ratingValue = index + 1;
+ 					scope.onRatingSelected({
+ 						rating : index + 1
+ 					});
+ 				};
+
+ 				scope.$watch('ratingValue',
+ 					function(oldVal, newVal) {
+ 						if (newVal) {
+ 							updateStars();
+ 						}
+ 					}
+ 				);
+ 			}
+ 		};
+ 	}
+ );
+
+ </script>
+ <style>
+ .rating{
+   color: #D1D1D1;
+   margin: 0;
+   padding: 0;
+ }
+
+ ul.rating {
+   display: inline-block;
+ }
+
+ .rating li {
+   list-style-type: none;
+   display: inline-block;
+   padding: 4px;
+   font-size: 25px;
+   text-align: center;
+   font-weight: bold;
+   cursor: pointer;
+ }
+
+ .rating .filled {
+  color: #FDE35E;
+}
+ </style>
+ </html>

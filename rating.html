@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>star</title>
+<!-- <link rel="stylesheet" type="text/css" href="/css/result.css"> -->
+ <style>
+ <base href="bower_components/compass-mixins/lib/compass/css3">
+
+ </style>
+ <style>
+ .star-rating {
+   margin: 0;
+   padding: 0;
+   display: inline-block;
+
+   .star {
+     padding: 1px;
+     color: #ddd;
+     font-size: 20px;
+     text-shadow: .05em .05em #aaa;
+     list-style-type: none;
+     display: inline-block;
+     cursor: pointer;
+
+     &.filled {
+       color: #fd0;
+     }
+   }
+
+   &.readonly .star.filled {
+     color: #666;
+   }
+ }
+
+
+ </style>
+ <script src="./angular.min.js"></script>
+ <script type="text/javascript">//<![CDATA[
+
+   (function() {
+    'use strict';
+
+    angular
+      .module('app', [])
+      .controller('RatingController', RatingController)
+      .directive('starRating', starRating);
+
+    function RatingController() {
+      this.rating1 = 5;
+      this.rating2 = 2;
+      this.isReadonly = true;
+      this.rateFunction = function(rating) {
+        console.log('Rating selected: ' + rating);
+      };
+    }
+
+    function starRating() {
+      return {
+        restrict: 'EA',
+        template:
+          '<ul class="star-rating" ng-class="{readonly: readonly}">' +
+          '  <li ng-repeat="star in stars" class="star" ng-class="{filled: star.filled}" ng-click="toggle($index)">' +
+          '    <i class="fa fa-star"></i>' + // or &#9733
+          '  </li>' +
+          '</ul>',
+        scope: {
+          ratingValue: '=ngModel',
+          max: '=?', // optional (default is 5)
+          onRatingSelect: '&?',
+          readonly: '=?'
+        },
+        link: function(scope, element, attributes) {
+          if (scope.max == undefined) {
+            scope.max = 5;
+          }
+          function updateStars() {
+            scope.stars = [];
+            for (var i = 0; i < scope.max; i++) {
+              scope.stars.push({
+                filled: i < scope.ratingValue
+              });
+            }
+          };
+          scope.toggle = function(index) {
+            if (scope.readonly == undefined || scope.readonly === false){
+              scope.ratingValue = index + 1;
+              scope.onRatingSelect({
+                rating: index + 1
+              });
+            }
+          };
+          scope.$watch('ratingValue', function(oldValue, newValue) {
+            if (newValue) {
+              updateStars();
+            }
+          });
+        }
+      };
+    }
+  })();
+
+ </script>
+
+ </head>
+
+ <body ng-app="app">
+<div ng-app="app" ng-controller="RatingController as rating" class="container">
+  <h1>Angular Star Rating Directive</h1>
+  <div star-rating ng-model="rating.rating1" max="10" on-rating-select="rating.rateFunction(rating)"></div>
+  <star-rating ng-model="rating.rating2" readonly="rating.isReadonly"></star-rating>
+  <label>
+    <input type="checkbox" ng-model="rating.isReadonly"/>
+    Is Readonly
+  </label>
+
+  <div><strong>Rating 1:</strong> {{rating.rating1}}</div>
+  <div><strong>Rating 2:</strong> {{rating.rating2}}</div>
+</div>
+
+
+</body>
+</html>

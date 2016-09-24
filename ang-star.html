@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!-- saved from url=(0044)http://lab.rafamello.com/angular-input-stars -->
+<html class="no-js"><!--<![endif]--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>RM - AngularJS Directives - ng-input-stars </title>
+		<meta name="description" content="Rafael Mello&#39;s IO, come in! ">
+		<meta name="keywords" content="web development, javascript, angularjs, input-stars  ">
+		<meta name="author" content="Rafael Mello Campanari">
+		<link rel="author" href="https://plus.google.com/+RafaelCMelo">
+		<link rel="publisher" href="https://plus.google.com/+RafaelCMelo">
+		<link rel="shortcut icon" type="image/x-icon" href="http://lab.rafamello.com/modules/blog/img/favicon.png">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+</head>
+    <body ng-app="app" class="ng-scope">
+
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+
+        <div ng-controller="AppController as AppCtrl" class="ng-scope">
+        	<div class="container">
+
+        		<div class="row">
+        			<div class="col-sm-6" style="margin-top:30px;">
+    					<a href="http://blog.rafamello.com/" title="">blog</a>
+        			</div>
+        			<div class="col-sm-6 text-right">
+        				<h1>
+        					<a href="https://github.com/rcbytes/angular-input-stars" title=""><i class="fa fa-github"></i></a>
+        				</h1>
+        			</div>
+        		</div>
+
+
+        		<table class="table table-bordered">
+        			<thead>
+        				<tr>
+        					<th class="text-center">Property #</th>
+        					<th>Input</th>
+        					<th class="text-center">Value</th>
+        				</tr>
+        			</thead>
+        			<tbody>
+
+        				<tr>
+        					<td class="text-center">1</td>
+        					<td><ul ng-class="listClass" max="5" ng-model="AppCtrl.prop1" class="ng-scope ng-valid angular-input-stars ng-dirty ng-valid-parse"><!-- ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --></ul></td>
+        					<td class="text-center ng-binding" ng-bind="AppCtrl.prop1">1</td>
+        				</tr>
+
+        				<tr>
+        					<td class="text-center">1</td>
+        					<td><ul ng-class="listClass" icon-full="fa-circle" icon-empty="fa-circle-thin" max="5" ng-model="AppCtrl.prop1" class="ng-scope ng-valid angular-input-stars"><!-- ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --></ul></td>
+        					<td class="text-center ng-binding" ng-bind="AppCtrl.prop1">1</td>
+        				</tr>
+
+        				<tr>
+        					<td class="text-center">2</td>
+        					<td><ul ng-class="listClass" max="10" ng-model="AppCtrl.prop2" class="ng-scope ng-valid angular-input-stars"><!-- ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-star-o"></i></li><!-- end ngRepeat: item in items track by $index --></ul></td>
+        					<td class="text-center ng-binding" ng-bind="AppCtrl.prop2">2</td>
+        				</tr>
+
+        				<tr>
+        					<td class="text-center">2</td>
+        					<td><ul ng-class="listClass" icon-full="fa-circle" icon-empty="fa-circle-thin" max="10" ng-model="AppCtrl.prop2" class="ng-scope ng-valid angular-input-stars ng-dirty ng-valid-parse"><!-- ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle active"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --><li ng-mouseenter="paintStars($index)" ng-mouseleave="unpaintStars($index)" ng-repeat="item in items track by $index" class="ng-scope"><i ng-class="getClass($index)" ng-click="setValue($index, $event)" class="fa fa-fw fa-circle-thin"></i></li><!-- end ngRepeat: item in items track by $index --></ul></td>
+        					<td class="text-center ng-binding" ng-bind="AppCtrl.prop2">2</td>
+        				</tr>
+
+        			</tbody>
+        		</table>
+        		<div class="row">
+	        		<div class="col-sm-12 text-right">
+	        			MIT License © Rafael Mello Campanari <br> @_rcbytes
+		        	</div>
+        		</div>
+        	</div>
+        </div>
+
+        <link href="./font-awesome.min.css" rel="stylesheet">
+        <link href="./bootstrap.min.css" rel="stylesheet">
+        <link href="./angular-input-stars.css" rel="stylesheet">
+
+        <script async="" src="./analytics.js"></script><script src="./angular.min.js"></script>
+
+        <script>
+
+        	angular.module('app', [])
+
+        	.controller('AppController',
+        		[
+
+        			function () {
+
+        				var vm = this;
+
+        				vm.prop1 = 0;
+        				vm.prop2 = 0;
+        				vm.prop3 = 0;
+
+        			}
+        		]
+        	);
+
+        </script>
+
+        <script src="./angular-input-stars.js"></script>
+
+
+    <script>
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','analytics.js','ga');
+
+        ga('create', 'UA-56090504-1', 'auto');
+        ga('require', 'displayfeatures');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+
+</body></html>
