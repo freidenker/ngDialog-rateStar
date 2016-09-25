@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog.css">
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-default.css">
 <link rel="stylesheet" href="bower_components/ng-dialog/css/ngDialog-theme-plain.css">
@@ -10,6 +11,7 @@
 <a href ng-click="openDefault()">open default</a>
 <div>
 <p>{{feed.back}}</p>
+<p>{{feed.content}}</p>
 </div>
 <script src="angular.min.js"></script>
 <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
@@ -75,9 +77,10 @@ ngDialog.open({
           '<a href="" ng-click="closeSecond()">Close all by click here!</a>'+
           '</h3>',
 */
-template:  "<h3>Rating</h3> "
-           + '<div ng-init="rating = star.rating + 1"></div>'
-           + '<div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)"> </div>',
+template:  '<h3 style="text-align:center">Rating</h3>'
+           + '<div ng-init="rating = star.rating + 1" style="text-align:center"></div>'
+           + '<div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating)" style="text-align:center"> </div><br>'
+           + '<form style="text-align:center"><textarea rows="5" cols="20" class="form-control" ng-model=feed.content placeholder="tell us your advise"></textarea><br><br><button class="btn" ng-click="closeSecond()">Commit &nbsp; <button class="btn" ng-click="closeSecond()">Concel</form>',
 
 //template: "<button type='button' ng-dialog='npdpop.html' ng-dialog-class='ngdialog-theme-flat' ng-dialog-controller='SecondModalCtrl' ng-dialog-close-previous>Open</button>",
 //template: 'npdpop.html',
@@ -97,10 +100,13 @@ ngDialog.close();
 
 app.controller('RatingCtrl', function ($scope, $rootScope, ngDialog) {
   $scope.rating = 5;
-  $rootScope.feed={back: 0};
+  $rootScope.feed={back: 0, content: ""};
   $scope.rateFunction = function(rating) {
     alert('Rating selected new- ' + rating);
     $rootScope.feed.back=rating;
+  };
+  $scope.closeSecond = function () {
+  ngDialog.close();
   };
 });
 
