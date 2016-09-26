@@ -12,6 +12,8 @@
 <div>
 <p>{{feed.back}}</p>
 <p>{{feed.content}}</p>
+<p>{{currentdate}}</p>
+<button ng-click="removedate()">remove</button>
 </div>
 <script src="angular.min.js"></script>
 <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
@@ -32,8 +34,18 @@
 
 <script>
 var app = angular.module('exampleDialog', ['ngDialog']);
-app.controller('MainCtrl', function ($scope, $rootScope, ngDialog) {
+app.controller('MainCtrl', function ($scope, $rootScope, ngDialog,$filter) {
 $rootScope.jsonData = '{"foo": "bar"}';
+// test date timezone
+//$rootScope.currentdate=new Date();
+var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
+$rootScope.currentdate=today;
+$rootScope.removedate = function(){
+  delete $rootScope.currentdate;
+};
+
+
+
 $rootScope.theme = 'ngdialog-theme-default';
 $scope.open = function () {
 ngDialog.open({ template: 'firstDialogId', controller: 'InsideCtrl' });
