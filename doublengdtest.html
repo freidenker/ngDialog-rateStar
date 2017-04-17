@@ -13,9 +13,20 @@
 <p>{{feed.back}}</p>
 <p>{{feed.content}}</p>
 <p>{{currentdate}}</p>
+<p>{{baseurl}}</p>
+<p>{{testurl}}</p>
 <p ng-show="showpele">this decide is correct</p>
-<button ng-click="removedate()">remove</button>
+<button ng-click="removedate()">remove</button><br><br>
+<p>hello github<p>
+<a ng-href="https://github.com/" >Github</a>
 </div>
+
+<div>
+<a ng-click="clickOnUpload(); $event.stopPropagation();" id="com.hp.mycomp"> Something </a>
+</div>
+
+
+<script src="jquery-3.1.1.min.js"></script>
 <script src="angular.min.js"></script>
 <script src="bower_components/ng-dialog/js/ngDialog.js"></script>
 
@@ -35,15 +46,58 @@
 
 <script>
 var app = angular.module('exampleDialog', ['ngDialog']);
-app.controller('MainCtrl', function ($scope, $rootScope, ngDialog,$filter) {
+app.controller('MainCtrl', function ($scope, $rootScope, ngDialog ,$filter, $location, $timeout ) {
 $rootScope.jsonData = '{"foo": "bar"}';
 // test date timezone
 //$rootScope.currentdate=new Date();
+var apps=[];
+//if(apps === undefined || apps.length == 0 ){
+//  alert("hallo, empty apps");
+//  console.log("hallo, empty apps");
+//}
+
+var apps2={"one": "","two": "two","three": "three"};
+//if(apps2.group === undefined ){
+//  alert("hallo, got no app group");
+//}
+
+//if(apps2.one === ''){
+//  alert("hallo, got empty property");
+//}
+
+
 var today = $filter('date')(new Date(),'yyyy-MM-dd HH:mm:ss Z');
+$rootScope.baseurl=$location.absUrl();
+var parasfromUrl= $location.search();
+$rootScope.testurl=parasfromUrl.firstname;
+
 $rootScope.currentdate=today;
 $rootScope.removedate = function(){
   delete $rootScope.currentdate;
 };
+/*
+if($rootScope.baseurl !== null){
+  $timeout(function(){
+       alert("Hello! I am an alert box!!");
+  },1000);
+}else{
+  $timeout(function(){
+       alert("Hello! suck!");
+  },3000);
+}
+*/
+$scope.clickOnUpload = function () {
+  alert("Hello! sweetie! Carina");
+};
+
+//if(1>0){
+var sid="com.hp.mycomp";
+$timeout(function() {
+//  var sid="#com.hp.mycomp";
+  angular.element(document.getElementById(sid)).triggerHandler('click');
+}, 500);
+//}
+
 
 $rootScope.testexist=true;
 if($rootScope.testexist == false){
@@ -88,7 +142,8 @@ scope: $scope
 });
 
 
-app.controller('InsideCtrl', function ($scope, ngDialog) {
+app.controller('InsideCtrl', function ($scope, $rootScope, ngDialog) {
+//$rootScope.avgstars=3.5;
 $scope.openSecond = function () {
 ngDialog.open({
 /*template: '<h3>' +
@@ -97,11 +152,9 @@ ngDialog.open({
 */
 template:  '<h3 style="text-align:center">Rating</h3>'
 
-           + '<div class="star-rating" star-rating rating-value="4" data-max="5" on-rating-selected="rateFunction(rating)" style="text-align:center"> </div><br>'
-           + '<form style="text-align:center"><textarea rows="5" cols="20" class="form-control" ng-model=feed.content placeholder="tell us your advise"></textarea><br><br><button class="btn" ng-click="closeSecond()">Commit &nbsp; <button class="btn" ng-click="closeSecond()">Concel</form>',
-
-//template: "<button type='button' ng-dialog='npdpop.html' ng-dialog-class='ngdialog-theme-flat' ng-dialog-controller='SecondModalCtrl' ng-dialog-close-previous>Open</button>",
-//template: 'npdpop.html',
+           + '<p style="text-align:center">{{ acturalavgstars }}</p><div class="star-rating" avgstar-rating rating-value="{{avgstars}}" data-max="5"  style="text-align:center"> </div><br>'
+           + '<form style="text-align:center"><textarea rows="5" cols="20" class="form-control" ng-model=feed.content placeholder="tell us your advise"></textarea><br><br>'
+           + '<button class="btn" ng-click="closeSecond()">Commit</button> &nbsp;&nbsp; <button class="btn" ng-click="closeSecond()">Concel</button></form>',
 plain: true,
 closeByEscape: false,
 //controller: 'SecondModalCtrl'
@@ -117,31 +170,37 @@ ngDialog.close();
 });
 
 app.controller('RatingCtrl', function ($scope, $rootScope, ngDialog) {
-  $scope.rating = 5;
+
+  var scores=0.3;
+  var prescores=scores*10 % 10; //model of scores/10
+  if(prescores==0 || prescores>=5){
+     prescores=scores;
+  }else{
+    prescores=scores-1;
+  }
+
+  $rootScope.acturalavgstars=scores;
+  $rootScope.avgstars=prescores;
   $rootScope.feed={back: 0, content: ""};
-  $scope.rateFunction = function(rating) {
-    alert('Rating selected new- ' + rating);
-    $rootScope.feed.back=rating;
-  };
   $scope.closeSecond = function () {
   ngDialog.close();
   };
 });
 
-app.directive('starRating',
+app.directive('avgstarRating',
 function() {
  return {
    restrict : 'A',
    template : '<ul class="rating">'
-        + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)" class="fa fa-star active">'
-
-        + '</li>'
-        + '</ul>',
+            + '	<li ng-repeat="star in stars" ng-class="star" class="fa fa-star active">'
+            + '</li>'
+            + '</ul>',
    scope : {
-     ratingValue : '=',
+     ratingValue : '@',
      max : '=',
      onRatingSelected : '&'
    },
+
    link : function(scope, elem, attrs) {
      var updateStars = function() {
        scope.stars = [];
@@ -150,13 +209,6 @@ function() {
            filled : i < scope.ratingValue
          });
        }
-     };
-
-     scope.toggle = function(index) {
-       scope.ratingValue = index + 1;
-       scope.onRatingSelected({
-         rating : index + 1
-       });
      };
 
      scope.$watch('ratingValue',
@@ -169,7 +221,6 @@ function() {
    }
  };
 });
-
 
 </script>
 <style>
